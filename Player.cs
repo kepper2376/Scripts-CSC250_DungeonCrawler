@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     public GameObject southExit;
     public GameObject eastExit;
     public GameObject westExit;
-    private float speed = 5.0f;
+    public GameObject middleOfTheRoom;
+    private float speed = 8.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
+
 
     private void turnOffExits()
     {
@@ -33,11 +35,12 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //disable all exits when the scene first loads
+        // disable all exits when the scene first loads
         this.turnOffExits();
 
-        //not our first scene
-        if (!MySingleton.currentDirection.Equals("?"))
+        // not our first scene
+        this.middleOfTheRoom.SetActive(true);
+        if (!MySingleton.currentDirection.Equals("?")) 
         {
             if(MySingleton.currentDirection.Equals("north"))
             {
@@ -55,7 +58,15 @@ public class Player : MonoBehaviour
             {
                 this.gameObject.transform.position = this.westExit.transform.position;
             }
+            StartCoroutine(turnOnMiddle());
         }
+    }
+
+    IEnumerator turnOnMiddle() // set up my own thread
+    {
+        yield return new WaitForSeconds(1);
+        this.middleOfTheRoom.SetActive(true);
+        print("turned on");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,8 +77,8 @@ public class Player : MonoBehaviour
         }
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
-            print("at middle of Room");
             this.amAtMiddleOfRoom = true;
+            MySingleton.currentDirection = "middle"; // won't be north, south, east, west so we don't push to those directions anymore
         }
     }
 
@@ -80,16 +91,17 @@ public class Player : MonoBehaviour
             this.turnOnExits();
             MySingleton.currentDirection = "north";
             this.gameObject.transform.LookAt(this.northExit.transform.position);
-            // Lookat tells the player to look at something and it does 
+            // LookAt tells the player to look at something and it does 
             // target inside of the paranthesese
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving)
         {
-            this.amMoving = true;
-            this.turnOnExits();
+            // if we press the down arrow we the logic below
+            this.amMoving = true; // are moving
+            this.turnOnExits(); // turn on exits
             MySingleton.currentDirection = "south";
-            this.gameObject.transform.LookAt(this.southExit.transform.position);
+            this.gameObject.transform.LookAt(this.southExit.transform.position); // make our guy face the correct way
         }
 
         if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving)
@@ -109,7 +121,7 @@ public class Player : MonoBehaviour
 
         }
 
-        //make the player move in the current direction
+        // make the player move in the current direction is below which is asked every frame bc in Update function
         if (MySingleton.currentDirection.Equals("north"))
         {
             this.gameObject.transform.position = Vector3.MoveTowards(this.gameObject.transform.position, this.northExit.transform.position, this.speed * Time.deltaTime);
