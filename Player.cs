@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float speed = 8.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
+    private int[] exitStatus = { 0, 0, 0, 0 };
+
 
 
     private void turnOffExits()
@@ -30,6 +32,15 @@ public class Player : MonoBehaviour
         this.southExit.gameObject.SetActive(true);
         this.eastExit.gameObject.SetActive(true);
         this.westExit.gameObject.SetActive(true);
+    }
+
+    private void randomizeExits()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            
+            this.exitStatus[i] = Random.Range(0, 2);
+        }
     }
 
     // Start is called before the first frame update
