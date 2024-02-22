@@ -35,13 +35,23 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+        
         // disable all exits when the scene first loads
         this.turnOffExits();
 
         // not our first scene
-        this.middleOfTheRoom.SetActive(true);
+        this.middleOfTheRoom.SetActive(false);
+
         if (!MySingleton.currentDirection.Equals("?")) 
         {
+            //mark ourselves as moving since we are entering the scene through one of the exits
+            this.amMoving = true;
+
+            //we will be positioning the player by one of the exits so we can turn on the middle collider
+            this.middleOfTheRoom.SetActive(true);
+            this.amAtMiddleOfRoom = false;
+
             if(MySingleton.currentDirection.Equals("north"))
             {
                 this.gameObject.transform.position = this.southExit.transform.position;
@@ -58,16 +68,26 @@ public class Player : MonoBehaviour
             {
                 this.gameObject.transform.position = this.westExit.transform.position;
             }
-            StartCoroutine(turnOnMiddle());
+            // StartCoroutine(turnOnMiddle());
+             else
+            {
+            //We will be positioning the play at the middle
+            //so keep the middle collider off for this run of the scene
+            this.amMoving = false;
+            this.amAtMiddleOfRoom = true;
+            this.middleOfTheRoom.SetActive(false);
+            this.gameObject.transform.position = this.middleOfTheRoom.transform.position;
+            }
         }
     }
 
-    IEnumerator turnOnMiddle() // set up my own thread
+    /* IEnumerator turnOnMiddle() // set up my own thread
     {
         yield return new WaitForSeconds(1);
         this.middleOfTheRoom.SetActive(true);
         print("turned on");
     }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
@@ -77,8 +97,15 @@ public class Player : MonoBehaviour
         }
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
+            //we have hit the middle of the room, so lets turn off the collider
+            //until the next run of the scene to avoid additional collisions
+            this.middleOfTheRoom.SetActive(false);
+            this.turnOnExits();
+
+            print("middle");
             this.amAtMiddleOfRoom = true;
-            MySingleton.currentDirection = "middle"; // won't be north, south, east, west so we don't push to those directions anymore
+            this.amMoving = false;
+            MySingleton.currentDirection = "middle";
         }
     }
 
