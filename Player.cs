@@ -13,9 +13,6 @@ public class Player : MonoBehaviour
     private float speed = 8.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
-    private int[] exitStatus = { 0, 0, 0, 0 };
-
-
 
     private void turnOffExits()
     {
@@ -34,19 +31,10 @@ public class Player : MonoBehaviour
         this.westExit.gameObject.SetActive(true);
     }
 
-    private void randomizeExits()
-    {
-        for(int i = 0; i < 4; i++)
-        {
-            
-            this.exitStatus[i] = Random.Range(0, 2);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
+       // Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         
         // disable all exits when the scene first loads
         this.turnOffExits();
@@ -66,18 +54,26 @@ public class Player : MonoBehaviour
             if(MySingleton.currentDirection.Equals("north"))
             {
                 this.gameObject.transform.position = this.southExit.transform.position;
+                this.gameObject.transform.LookAt(this.northExit.transform.position);
+
             }
             else if (MySingleton.currentDirection.Equals("south"))
             {
                 this.gameObject.transform.position = this.northExit.transform.position;
+                this.gameObject.transform.LookAt(this.southExit.transform.position);
+
             }
             else if (MySingleton.currentDirection.Equals("west"))
             {
                 this.gameObject.transform.position = this.eastExit.transform.position;
+                this.gameObject.transform.LookAt(this.westExit.transform.position);
+
             }
             else if (MySingleton.currentDirection.Equals("east"))
             {
                 this.gameObject.transform.position = this.westExit.transform.position;
+                this.gameObject.transform.LookAt(this.eastExit.transform.position);
+
             }
             // StartCoroutine(turnOnMiddle());
              else
