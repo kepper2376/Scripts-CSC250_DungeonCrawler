@@ -32,30 +32,38 @@ public class DungeonController : MonoBehaviour
     }
     void Start()
     {
-        MySingleton.theCurrentRoom = new Room("a room");
-        MySingleton.addRoom(MySingleton.theCurrentRoom); //Not using this yet...
+        if(MySingleton.createMap == false) // double equals bc comparing
+         {
+            MySingleton.createMap = true;
+            MySingleton.createRooms();
+         }
+
+        this.MySingleton.theCurrentRoom = MySingleton.theRooms[MySingleton.playerPosition];
 
         int openDoorIndex = Random.Range(0, 4);
         this.closedDoors[openDoorIndex].SetActive(false); //visually make an open door
         MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(openDoorIndex));
+        int[] Exits = new int[4];
 
-        for(int i = 0; i < 4; i++)
+        if(MySingleton.theRooms[MySingleton.playerPosition - 10] != null) // null checking to see if it doesn't exist
         {
-            //if I am not looking at the already open door
-            if(openDoorIndex != i)
-            {
-                //should this door be open or not?
-                int coinFlip = Random.Range(0, 2);
-                if(coinFlip == 1)
-                {
-                    //open the door in that direction
-                    this.closedDoors[i].SetActive(false); //visually make an open door
-                    MySingleton.theCurrentRoom.setOpenDoor(this.mapIndexToStringForExit(i));
-
-                }
-            }
+            Exits[0] = 1;
         }
-       
+
+        if(MySingleton.theRooms[MySingleton.playerPosition + 10] != null) // null checking to see if it doesn't exist
+        {
+            Exits[1] = 2;
+        }
+
+        if(MySingleton.theRooms[MySingleton.playerPosition - 1] != null) // null checking to see if it doesn't exist
+        {
+            Exits[2] = 3;
+        }
+
+        if(MySingleton.theRooms[MySingleton.playerPosition + 1] != null) // null checking to see if it doesn't exist
+        {
+            Exits[3] = 4;
+        }
     }
 
     // Update is called once per frame
