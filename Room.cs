@@ -30,6 +30,6 @@ public class Room
                 return true;
             }
         }
-        return false; //whatever direction you wanted to go, does NOT have an open door
+        return false; // whatever direction you wanted to go, does NOT have an open door
     }
 }
