@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public GameObject northExit;
     public GameObject southExit;
@@ -98,8 +98,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print(other.tag);
         if(other.CompareTag("door"))
         {
+            print("Loading scene");
+
             EditorSceneManager.LoadScene("DungeonRoom");
         }
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
