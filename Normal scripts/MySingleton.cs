@@ -6,7 +6,7 @@ public class MySingleton // place that can be shared to all - do not want to cre
 {
     public static string currentDirection = "?"; // static owned by the class - to access outside of the class with the name of the class
     public static Player thePlayer;
-    public static Dungeon theDungeon = null; // needs to be accessed outside of the class so we need to put it as a field 
+    public static Dungeon theDungeon = MySingleton.generateDungeon();
 
     public static Dungeon generateDungeon()
     {
@@ -29,7 +29,7 @@ public class MySingleton // place that can be shared to all - do not want to cre
         r6.addExit("south", r3);
 
         Dungeon theDungeon = new Dungeon("the cross");
-        MySingleton.theDungeon.setStartRoom(r1); // technically dungeon only knows about 1 room, but this 1 room has mechanisms to connect to all the other rooms
+        theDungeon.setStartRoom(r1); // technically dungeon only knows about 1 room, but this 1 room has mechanisms to connect to all the other rooms
         MySingleton.thePlayer = new Player("Mike");
         theDungeon.addPlayer(MySingleton.thePlayer);
         return theDungeon;    

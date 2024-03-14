@@ -13,7 +13,7 @@ public class Exit
     this.destinationRoom = destinationRoom;
    }
 
-   public string getDirection()
+   public string getDirection() // method?
    {
       return this.direction;
    }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player 
 {
+   
     private string name;
-    private Room currentRoom; // player becomes aware of current room
+    private Room currentRoom;
 
     public Player(string name)
     {
@@ -16,5 +17,10 @@ public class Player
     public Room getCurrentRoom()
     {
         return this.currentRoom;
+    }
+
+    public void setCurrentRoom(Room r)
+    {
+        this.currentRoom = r;
     }
 }

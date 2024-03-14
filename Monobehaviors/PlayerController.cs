@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject eastExit;
     public GameObject westExit;
     public GameObject middleOfTheRoom;
-    private float speed = 8.0f;
+    private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
 
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
         this.southExit.gameObject.SetActive(false);
         this.eastExit.gameObject.SetActive(false);
         this.westExit.gameObject.SetActive(false);
-
     }
 
     private void turnOnExits()
@@ -42,7 +41,7 @@ public class PlayerController : MonoBehaviour
         // not our first scene
         this.middleOfTheRoom.SetActive(false);
 
-        if (!MySingleton.currentDirection.Equals("?")) 
+        if(!MySingleton.currentDirection.Equals("?")) 
         {
             //mark ourselves as moving since we are entering the scene through one of the exits
             this.amMoving = true;
@@ -57,19 +56,19 @@ public class PlayerController : MonoBehaviour
                 this.gameObject.transform.LookAt(this.northExit.transform.position);
 
             }
-            else if (MySingleton.currentDirection.Equals("south"))
+            else if(MySingleton.currentDirection.Equals("south"))
             {
                 this.gameObject.transform.position = this.northExit.transform.position;
                 this.gameObject.transform.LookAt(this.southExit.transform.position);
 
             }
-            else if (MySingleton.currentDirection.Equals("west"))
+            else if(MySingleton.currentDirection.Equals("west"))
             {
                 this.gameObject.transform.position = this.eastExit.transform.position;
                 this.gameObject.transform.LookAt(this.westExit.transform.position);
 
             }
-            else if (MySingleton.currentDirection.Equals("east"))
+            else if(MySingleton.currentDirection.Equals("east"))
             {
                 this.gameObject.transform.position = this.westExit.transform.position;
                 this.gameObject.transform.LookAt(this.eastExit.transform.position);
