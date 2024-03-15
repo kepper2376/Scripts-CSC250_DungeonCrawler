@@ -24,15 +24,15 @@ public class Player
         this.currentRoom = r;
         if(this.currentRoom != r)
         {
-            this.currentRoom = r2
+            this.currentRoom = r2;
         }
         else
         {
-            this.currentRoom = r3
+            this.currentRoom = r3;
         }
-        else if
+        else
         {
-            this.currentRoom = r4
+            this.currentRoom = r4;
         }
     }
 }
