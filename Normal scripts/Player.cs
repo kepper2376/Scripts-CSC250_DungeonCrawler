@@ -34,5 +34,13 @@ public class Player
         {
             this.currentRoom = r4;
         }
+        else 
+        {
+            this.currentRoom = r5;
+        }
+        else 
+        {
+            this.currentRoom = r6;
+        }
     }
 }
