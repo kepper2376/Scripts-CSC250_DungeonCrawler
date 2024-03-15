@@ -22,5 +22,17 @@ public class Player
     public void setCurrentRoom(Room r)
     {
         this.currentRoom = r;
+        if(this.currentRoom != r)
+        {
+            this.currentRoom = r2
+        }
+        else
+        {
+            this.currentRoom = r3
+        }
+        else if
+        {
+            this.currentRoom = r4
+        }
     }
 }
