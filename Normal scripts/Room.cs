@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Room
 {
-   // fields
     private string name;
 
-    private Exit[] theExits = new Exit[4]; // collection of exits
-    private int howManyExits = 0; // how many exits within the collection
+    private Exit[] theExits = new Exit[4];
+    private int howManyExits = 0;
     private Player currentPlayer;
 
-    // constructor
     public Room(string name)
     {
         this.name = name;
@@ -21,7 +19,29 @@ public class Room
     public void addPlayer(Player thePlayer)
     {
         this.currentPlayer = thePlayer;
-        this.currentPlayer.setCurrentRoom(this);
+        this.currentPlayer.setCurrentRoom(this); //this updates the player to their new current room
+    }
+
+    //remove the current player from this room
+    public void removePlayer(string direction)
+    {
+        Exit theExit = this.getExitGivenDirection(direction);
+        Room destinationRoom = theExit.getDestinationRoom();
+        destinationRoom.addPlayer(this.currentPlayer);
+        this.currentPlayer = null; //finally remove the player that just left from this room
+
+    }
+
+    private Exit getExitGivenDirection(string direction)
+    {
+        for (int i = 0; i < this.howManyExits; i++)
+        {
+            if (this.theExits[i].getDirection().Equals(direction))
+            {
+                return this.theExits[i]; //returns the exit in the given direction
+            }
+        }
+        return null; //never found the exit
     }
 
     public bool hasExit(string direction)
@@ -32,17 +52,17 @@ public class Room
             {
                 return true;
             }
-       }
-       return false;
+        }
+        return false;
     }
 
-    public void addExit(string direction, Room destinationRoom) // destinationRoom is a pointer and do not need * like in c++
+    public void addExit(string direction, Room destinationRoom)
     {
-        if(this.howManyExits < this.theExits.Length) //  makes sure we do not go over 4 exits
+        if(this.howManyExits < this.theExits.Length)
         {
-        Exit e = new Exit(direction, destinationRoom); // taking advantage of constructor in the Exit class
-        this.theExits[this.howManyExits] = e;
-        this.howManyExits++;
+            Exit e = new Exit(direction, destinationRoom);
+            this.theExits[this.howManyExits] = e;
+            this.howManyExits++;
         }
     }
 }

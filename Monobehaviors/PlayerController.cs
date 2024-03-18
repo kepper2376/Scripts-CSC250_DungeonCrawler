@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
+    private int pelletCount;
 
     private void turnOffExits()
     {
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
        // Rigidbody rb = this.gameObject.GetComponent<Rigidbody>();
         
         // disable all exits when the scene first loads
@@ -95,14 +97,24 @@ public class PlayerController : MonoBehaviour
     }
     */
 
-    private void OnTriggerEnter(Collider other)
+   private void OnTriggerEnter(Collider other)
     {
-        print(other.tag);
         if(other.CompareTag("door"))
         {
             print("Loading scene");
 
+            //remove the player from the current room and place him into the destination, prior to loading the new scene
+            MySingleton.thePlayer.getCurrentRoom().removePlayer(MySingleton.currentDirection);
+
             EditorSceneManager.LoadScene("DungeonRoom");
+        }
+        else if(other.CompareTag("power-pellet"))
+        {
+            other.gameObject.SetActive(false); //make pellet disappear
+            
+            pelletCount = pelletCount + 1;
+            print(pelletCount);      
+
         }
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
@@ -116,31 +128,34 @@ public class PlayerController : MonoBehaviour
             this.amMoving = false;
             MySingleton.currentDirection = "middle";
         }
+        else
+        {
+            print("spomethilskdfjskldjfsdjkl");
+        }
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving)
+       if (Input.GetKeyUp(KeyCode.UpArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("north"))
         {
             this.amMoving = true;
             this.turnOnExits();
             MySingleton.currentDirection = "north";
             this.gameObject.transform.LookAt(this.northExit.transform.position);
-            // LookAt tells the player to look at something and it does 
-            // target inside of the paranthesese
         }
 
-        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.DownArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("south"))
         {
-            // if we press the down arrow we the logic below
-            this.amMoving = true; // are moving
-            this.turnOnExits(); // turn on exits
+            this.amMoving = true;
+            this.turnOnExits();
             MySingleton.currentDirection = "south";
-            this.gameObject.transform.LookAt(this.southExit.transform.position); // make our guy face the correct way
+            this.gameObject.transform.LookAt(this.southExit.transform.position);
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.LeftArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("west"))
         {
             this.amMoving = true;
             this.turnOnExits();
@@ -148,7 +163,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.transform.LookAt(this.westExit.transform.position);
         }
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving)
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !this.amMoving && MySingleton.thePlayer.getCurrentRoom().hasExit("east"))
         {
             this.amMoving = true;
             this.turnOnExits();

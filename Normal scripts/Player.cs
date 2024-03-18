@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player 
 {
-   
     private string name;
     private Room currentRoom;
 
@@ -22,25 +21,5 @@ public class Player
     public void setCurrentRoom(Room r)
     {
         this.currentRoom = r;
-        if(this.currentRoom != r)
-        {
-            this.currentRoom = r2;
-        }
-        else
-        {
-            this.currentRoom = r3;
-        }
-        else
-        {
-            this.currentRoom = r4;
-        }
-        else 
-        {
-            this.currentRoom = r5;
-        }
-        else 
-        {
-            this.currentRoom = r6;
-        }
     }
 }
