@@ -108,14 +108,6 @@ public class PlayerController : MonoBehaviour
 
             EditorSceneManager.LoadScene("DungeonRoom");
         }
-        else if(other.CompareTag("power-pellet"))
-        {
-            other.gameObject.SetActive(false); //make pellet disappear
-            
-            pelletCount = pelletCount + 1;
-            print(pelletCount);      
-
-        }
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
             //we have hit the middle of the room, so lets turn off the collider
