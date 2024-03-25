@@ -117,6 +117,8 @@ public class PlayerController : MonoBehaviour
             Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
             theCurrentRoom.removePellet(other.GetComponent<pelletController>().direction); 
 
+
+            EditorSceneManager.LoadScene("Fight Scene");
         }
        
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
