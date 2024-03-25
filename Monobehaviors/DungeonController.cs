@@ -42,22 +42,22 @@ public class DungeonController : MonoBehaviour
     private void setPellets()
     {
         Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
-        if(theCurrentRoom.hasPellet("north"))
+        if (!theCurrentRoom.hasPellet("north"))
         {
             this.northDoor.SetActive(false);
         }
 
-        if (theCurrentRoom.hasPellet("south"))
+        if (!theCurrentRoom.hasPellet("south"))
         {
             this.southDoor.SetActive(false);
         }
 
-        if (theCurrentRoom.hasPellet("east"))
+        if (!theCurrentRoom.hasPellet("east"))
         {
             this.eastDoor.SetActive(false);
         }
 
-        if (theCurrentRoom.hasPellet("west"))
+        if (!theCurrentRoom.hasPellet("west"))
         {
             this.westDoor.SetActive(false);
         }

@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private float speed = 5.0f;
     private bool amMoving = false;
     private bool amAtMiddleOfRoom = false;
-    private int pelletCount;
 
     private void turnOffExits()
     {
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
         // not our first scene
         this.middleOfTheRoom.SetActive(false);
 
-        if(!MySingleton.currentDirection.Equals("?")) 
+        if (!MySingleton.currentDirection.Equals("?")) 
         {
             //mark ourselves as moving since we are entering the scene through one of the exits
             this.amMoving = true;
@@ -57,11 +56,13 @@ public class PlayerController : MonoBehaviour
                 this.gameObject.transform.position = this.southExit.transform.position;
                 this.gameObject.transform.LookAt(this.northExit.transform.position);
 
+
             }
             else if(MySingleton.currentDirection.Equals("south"))
             {
                 this.gameObject.transform.position = this.northExit.transform.position;
                 this.gameObject.transform.LookAt(this.southExit.transform.position);
+
 
             }
             else if(MySingleton.currentDirection.Equals("west"))
@@ -69,15 +70,16 @@ public class PlayerController : MonoBehaviour
                 this.gameObject.transform.position = this.eastExit.transform.position;
                 this.gameObject.transform.LookAt(this.westExit.transform.position);
 
+
             }
             else if(MySingleton.currentDirection.Equals("east"))
             {
                 this.gameObject.transform.position = this.westExit.transform.position;
                 this.gameObject.transform.LookAt(this.eastExit.transform.position);
-
             }
             // StartCoroutine(turnOnMiddle());
-             else
+        } 
+            else
             {
             //We will be positioning the play at the middle
             //so keep the middle collider off for this run of the scene
@@ -87,13 +89,13 @@ public class PlayerController : MonoBehaviour
             this.gameObject.transform.position = this.middleOfTheRoom.transform.position;
             }
         }
-    }
 
     /* IEnumerator turnOnMiddle() // set up my own thread
     {
         yield return new WaitForSeconds(1);
         this.middleOfTheRoom.SetActive(true);
         print("turned on");
+
     }
     */
 
@@ -108,6 +110,15 @@ public class PlayerController : MonoBehaviour
 
             EditorSceneManager.LoadScene("DungeonRoom");
         }
+        else if(other.CompareTag("power-pellet"))
+        {
+            other.gameObject.SetActive(false); //visually make pellet disappear
+
+            Room theCurrentRoom = MySingleton.thePlayer.getCurrentRoom();
+            theCurrentRoom.removePellet(other.GetComponent<pelletController>().direction); 
+
+        }
+       
         else if(other.CompareTag("middleOfTheRoom") && !MySingleton.currentDirection.Equals("?"))
         {
             //we have hit the middle of the room, so lets turn off the collider

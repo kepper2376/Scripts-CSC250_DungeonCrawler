@@ -8,6 +8,31 @@ public class MySingleton // place that can be shared to all - do not want to cre
     public static Player thePlayer;
     public static Dungeon theDungeon = MySingleton.generateDungeon();
 
+    public static string flipDirection(string direction)
+    {
+        if(direction.Equals("north"))
+        {
+            return "south";
+        }
+        else if (direction.Equals("south"))
+        {
+            return "north";
+        }
+        else if (direction.Equals("east"))
+        {
+            return "west";
+        }
+        else if (direction.Equals("west"))
+        {
+            return "east";
+        }
+        else
+        {
+            Debug.Log(direction + " is not a legal direction in flipDirection inside of MySingleton");
+            return "N/A";
+        }
+    }
+    
     public static Dungeon generateDungeon()
     {
         Room r1 = new Room("R1"); // local variables

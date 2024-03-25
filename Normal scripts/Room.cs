@@ -140,6 +140,24 @@ public class Room
             Exit e = new Exit(direction, destinationRoom);
             this.theExits[this.howManyExits] = e;
             this.howManyExits++;
+         
+         if(direction.Equals("north"))
+            {
+                this.northPellet = new ArmorPellet();
+            }
+            else if (direction.Equals("south"))
+            {
+                this.southPellet = new ArmorPellet();
+            }
+            else if (direction.Equals("east"))
+            {
+                this.eastPellet = new ArmorPellet();
+            }
+            else if (direction.Equals("west"))
+            {
+                this.westPellet = new ArmorPellet();
+            }
         }
+
     }
 }
