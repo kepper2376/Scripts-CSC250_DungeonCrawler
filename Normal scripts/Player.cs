@@ -2,24 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player 
+public class Player : inhabitant
 {
-    private string name;
     private Room currentRoom;
 
-    public Player(string name)
+    public Player(string name) : base(name)
     {
-        this.name = name;
-        this.currentRoom = null;
     }
 
-    public Room getCurrentRoom()
-    {
-        return this.currentRoom;
-    }
-
-    public void setCurrentRoom(Room r)
-    {
-        this.currentRoom = r;
-    }
 }
