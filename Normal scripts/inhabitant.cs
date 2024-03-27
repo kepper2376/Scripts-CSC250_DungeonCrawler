@@ -6,10 +6,12 @@ public abstract class inhabitant //
 {
     protected string name;
     protected Room currentRoom;
+    protected int hp;
     public inhabitant(string name)
     {
         this.name = name;
         this.currentRoom = null;
+        this.hp = 100;
     }
     public Room getCurrentRoom()
     {
