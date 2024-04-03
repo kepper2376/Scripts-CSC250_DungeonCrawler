@@ -6,12 +6,13 @@ public abstract class inhabitant //
 {
     protected string name;
     protected Room currentRoom;
-    protected int hp;
+    protected int hp, ac;
     public inhabitant(string name)
     {
         this.name = name;
         this.currentRoom = null;
-        this.hp = 100;
+        this.hp = Random.Range(10, 16);
+        this.ac = Random.Range(8, 17);
     }
     public Room getCurrentRoom()
     {
@@ -21,5 +22,15 @@ public abstract class inhabitant //
     public void setCurrentRoom(Room r)
     {
         this.currentRoom = r;
+    }
+
+    public int getHP()
+    {
+        return this.hp;
+    }
+
+    public int getAC()
+    {
+        return this.ac;
     }
 }
