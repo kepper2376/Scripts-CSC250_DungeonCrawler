@@ -24,6 +24,11 @@ public abstract class inhabitant //
         this.currentRoom = r;
     }
 
+   public void takeDamage(int damage)
+    {
+        this.hp = this.hp - damage;
+    }
+   
     public int getHP()
     {
         return this.hp;
