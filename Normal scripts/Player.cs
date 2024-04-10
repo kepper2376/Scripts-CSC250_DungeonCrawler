@@ -10,4 +10,8 @@ public class Player : inhabitant
     {
     }
 
+    public void resetStats()
+    {
+        this.hp = this.maxHP;
+    }
 }

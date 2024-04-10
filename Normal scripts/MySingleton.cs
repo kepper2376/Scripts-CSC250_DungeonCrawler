@@ -7,6 +7,7 @@ public class MySingleton // place that can be shared to all - do not want to cre
     public static string currentDirection = "?"; // static owned by the class - to access outside of the class with the name of the class
     public static Player thePlayer;
     public static Dungeon theDungeon = MySingleton.generateDungeon();
+    public static int currentPellets = 0;
 
     public static string flipDirection(string direction)
     {
