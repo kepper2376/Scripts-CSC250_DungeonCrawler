@@ -35,7 +35,7 @@ public class fightController : MonoBehaviour
         {
             this.currentAttacker = monster_GO;
         }
-        StartCoroutine(fight());
+        this.StartCoroutine(fight());
     }
 
     private void tryAttack(inhabitant attacker, inhabitant defender)
@@ -115,7 +115,7 @@ public class fightController : MonoBehaviour
                 else
                 {
                     yield return new WaitForSeconds(0.75f);
-                    StartCoroutine(fight());
+                    this.StartCoroutine(fight());
                 }
 
             }
@@ -127,7 +127,7 @@ public class fightController : MonoBehaviour
                 //now the defender may have fewer hp...check if their are dead?
                 if (MySingleton.thePlayer.getHP() <= 0)
                 {
-                    this.losingSound.Play();
+                    
                     this.hero_GO.transform.Rotate(-90, 0, 0);
                     this.fightCommentaryTMP.text = "Monster Wins!!!!!";
                     this.isFightOver = true;
@@ -137,7 +137,7 @@ public class fightController : MonoBehaviour
                 else
                 {
                     yield return new WaitForSeconds(0.75f);
-                    StartCoroutine(fight());
+                    this.StartCoroutine(fight());
                 }
             }
         }
