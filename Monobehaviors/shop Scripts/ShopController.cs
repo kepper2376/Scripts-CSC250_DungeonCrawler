@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.IO;
+using System.IO; 
 using System;
 
 public class ShopController : MonoBehaviour
@@ -35,7 +35,7 @@ public class ShopController : MonoBehaviour
 
     private void readItemsData()
     {
-        string filePath = "Assets/Data Files/items_data.txt"; // Path to the file
+        string filePath = "Assets/data files/items_data.txt"; // Path to the file
         string answer = "";
 
         // Check if the file exists
