@@ -40,7 +40,7 @@ public class fightController : MonoBehaviour
 
     private void tryAttack(inhabitant attacker, inhabitant defender)
     {
-        StartCoroutine(MoveAndReturn());
+        this.StartCoroutine(MoveAndReturn());
         this.fightCommentaryTMP.text = ""; 
         //have attacker try to attack the defender
         int attackRoll = Random.Range(0, 20)+1;

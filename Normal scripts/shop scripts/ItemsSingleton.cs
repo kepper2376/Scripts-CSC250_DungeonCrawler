@@ -6,4 +6,3 @@ public class ItemsSingleton
 {
     public static int cherryItemCost = 1;
 }
- 
